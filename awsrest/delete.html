@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="jquery-3.1.1.min.js"></script>
+</head>
+<body>
+					Delete key EmailID:
+					<input name="key" id="SearchKey" /><br>
+					
+					<button> Save </button>
+
+				<script type="text/javascript">
+        
+					$(document).ready(function(){
+  						$("button").click(function(){
+ 						var emailid=$("#SearchKey").val();
+ 						var CustomerDetail = {
+							EmailID:emailid,
+						}
+ 						console.log(emailid);
+ 						$.ajax({
+                    		url: 'https://6q71u78ba9.execute-api.us-east-1.amazonaws.com/deletecustomer/deletecustomerdetailsbyemail',
+                    		cache: false,
+							type:'DELETE',
+							data: JSON.stringify(CustomerDetail),
+							success:function(data){
+								// $("#firstname").html(data.Item.FirstName);
+								// $('#lastname').html(data.Item.LastName);
+								// $('#emailid').html(data.Item.EmailID);
+								alert("successful");
+							}
+						}).fail(
+							function(){
+							alert("Error happened ");
+		                });
+					  });
+					});
+    			</script>
+				</body>
+				</html>

@@ -1,0 +1,21 @@
+const AWS=require('aws-sdk');
+var docClient=new AWS.DynamoDB.DocumentClient();
+var tableName="CustomerDetails";
+exports.handler =  (event,context,callback) => {
+    var params={
+        TableName:tableName,
+        Key:{
+            "EmailID":event.EmailID,
+            // "EmailID":"qwerty@gmail.com",
+        },
+        UpdateExpression: "set FirstName = :r, LastName=:p",
+        ExpressionAttributeValues:{
+        ":r":event.FirstName,
+        ":p":event.LastName,
+    },
+    ReturnValues:"UPDATED_NEW"
+    }
+    docClient.update(params,function(err,data){
+        callback(err,data);
+    })
+};

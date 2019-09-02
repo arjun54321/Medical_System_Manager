@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="jquery-3.1.1.min.js"></script>
+</head>
+<body>
+					EmailID:
+					<input name="EmailID" id="EmailID" /><br>
+					
+					FirstName:
+					<input name="FirstName" id="FirstName" /><br>
+	
+					LastName:
+					<input name="LastName" id="LastName" /><br>
+					
+					<button> Save </button>
+
+				<script type="text/javascript">
+        
+					$(document).ready(function(){
+  						$("button").click(function(){
+ 						var EmailID=$("#EmailID").val();
+ 						var FirstName=$("#FirstName").val();
+ 						var LastName=$("#LastName").val();
+ 						var CustomerDetail = {
+							EmailID:EmailID,
+							FirstName:FirstName,
+							LastName:LastName
+						}
+						console.log(CustomerDetail);
+ 						$.ajax({
+ 							crossDomain: true,
+                    		url: 'https://97zu6mc8b0.execute-api.us-east-1.amazonaws.com/dev/postcustomerdetails',
+                    		cache: false,
+							type:'POST',
+							dataType:'json',
+            				contentType:'application/json',
+							data: JSON.stringify(CustomerDetail),
+							success:function(data){
+								console.log($("#FirstName").html(data));
+							}
+						}).fail(
+							function(xhr, textStatus, err){
+							alert("Error happened "+err);
+		                });
+					  });
+					});
+    			</script>
+				</body>
+				</html>

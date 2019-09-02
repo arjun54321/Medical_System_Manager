@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="jquery-3.1.1.min.js"></script>
+</head>
+<body>
+					Search key EmailID:
+					<input name="key" id="SearchKey" /><br>
+					
+					FirstName:
+					<div name="firstName" id="firstname"></div><br>
+	              
+					LastName:
+					<div name="lastName" id="lastname" ></div><br>
+
+					EmailID:
+					<div name="emailid" id="emailid" ></div><br>
+					
+					<button> Save </button>
+
+				<script type="text/javascript">
+        
+					$(document).ready(function(){
+  						$("button").click(function(){
+ 						var emailid=$("#SearchKey").val();
+ 						console.log(emailid);
+ 						$.ajax({
+                    		url: 'https://buzmtfw8gd.execute-api.us-east-1.amazonaws.com/dev1/getcustomerdetailsbyemail',
+                    		cache: false,
+							type:'GET',
+							data: {EmailID : emailid},
+							success:function(data){
+								$("#firstname").html(data.Item.FirstName);
+								$('#lastname').html(data.Item.LastName);
+								$('#emailid').html(data.Item.EmailID);
+								// alert("successful");
+							}
+						}).fail(
+							function(xhr, textStatus, err){
+							alert("Error happened "+err);
+		                });
+					  });
+					});
+    			</script>
+				</body>
+				</html>

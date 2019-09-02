@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="jquery-3.1.1.min.js"></script>
+</head>
+<body>
+					Search key EmailID:
+					<input name="key" id="SearchKey" /><br>
+					
+					FirstName:
+					<input name="firstName" id="firstname">
+	              
+					LastName:
+					<input name="lastName" id="lastname" >
+					
+					<button> Save </button>
+
+				<script type="text/javascript">
+        
+					$(document).ready(function(){
+  						$("button").click(function(){
+ 						var emailid=$("#SearchKey").val();
+ 						var firstname=$("#firstname").val();
+ 						var lastname=$("#lastname").val();
+ 						var CustomerDetail = {
+							EmailID:emailid,
+							FirstName:firstname,
+							LastName:lastname
+						}
+ 						console.log(emailid);
+ 						$.ajax({
+                    		url: 'https://sqlbvz01uj.execute-api.us-east-1.amazonaws.com/updatecustomer/updatecustomer',
+                    		cache: false,
+							type:'PATCH',
+							data: JSON.stringify(CustomerDetail),
+							success:function(data){
+								alert("successful updated");
+							}
+						}).fail(
+							function(xhr, textStatus, err){
+							alert("Error happened "+err);
+		                });
+					  });
+					});
+    			</script>
+				</body>
+				</html>
